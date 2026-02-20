@@ -36,3 +36,35 @@ body {
   0%   { transform: scaleX(var(--s, 1)) rotate(0deg); }
   100% { transform: scaleX(var(--s, 1)) rotate(-360deg); }
 }
+/* ================= Lightning Effect (Suave) ================= */
+#hackerLightning {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 3.7vw;
+  width: 100vw;
+  height: 100vh;
+  word-break: break-all;
+  overflow: hidden;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  pointer-events: none; /* Importante: impede que cliques no texto atrapalhem */
+}
+
+#hackerLightning span {
+  display: inline-block;
+  opacity: 0;
+  color: #0d0d0d;
+  /* AQUI ESTÁ O SEGREDO DA SUAVIZAÇÃO: */
+  /* Adicionamos transição de cor e sombra para não "piscar" */
+  transition: opacity 0.1s ease, color 0.4s ease-out, text-shadow 0.4s ease-out;
+}
+
+#hackerLightning span.static {
+  opacity: 0 !important;
+}
