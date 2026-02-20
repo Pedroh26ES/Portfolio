@@ -1,8 +1,3 @@
-Aqui está o seu `README.md` completo, utilizando exatamente o template e a estrutura que pediu, com todas as secções ("tudo isso") incluídas e adaptadas para o contexto do seu Portfólio Profissional (React + Vite).
-
-Basta copiar e colar no seu repositório:
-
-```markdown
 <a href="https://classroom.github.com/online_ide?assignment_repo_id=99999999&assignment_repo_type=AssignmentRepo"><img src="https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg" width="200"/></a> <a href="https://classroom.github.com/open-in-codespaces?assignment_repo_id=99999999"><img src="https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg" width="250"/></a>
 
 ---
@@ -10,22 +5,22 @@ Basta copiar e colar no seu repositório:
 # 🏷️ Nome Profissional 👨‍💻
 
 > [!NOTE]
-> **Portfólio Profissional e SPA (Single Page Application)**.  
+> **Portfólio Profissional e SPA (Single Page Application)**.  
 > Uma aplicação responsiva, animada e moderna desenhada para apresentar a minha trajetória, o meu arsenal de habilidades, projetos desenvolvidos e formas de contacto.
 
 <table>
-  <tr>
-    <td width="800px">
-      <div align="justify">
-        Este <b>README.md</b> apresenta a documentação completa do meu <b>Portfólio Profissional</b>, construído como parte dos laboratórios práticos da disciplina. O objetivo deste projeto é criar uma plataforma centralizada e de alta performance para exibir as minhas qualificações ao mercado de trabalho, utilizando tecnologias modernas de front-end. O projeto foca-se numa <i>UI/UX refinada</i>, com animações fluidas e uma estrutura de código limpa e escalável.
-      </div>
-    </td>
-    <td>
-      <div>
-        <img src="https://joaopauloaramuni.github.io/image/logo_ES_vertical.png" alt="Logo do Projeto" width="120px"/>
-      </div>
-    </td>
-  </tr> 
+  <tr>
+    <td width="800px">
+      <div align="justify">
+        Este <b>README.md</b> apresenta a documentação completa do meu <b>Portfólio Profissional</b>, construído como parte dos laboratórios práticos da disciplina. O objetivo deste projeto é criar uma plataforma centralizada e de alta performance para exibir as minhas qualificações ao mercado de trabalho, utilizando tecnologias modernas de front-end. O projeto foca-se numa <i>UI/UX refinada</i>, com animações fluidas e uma estrutura de código limpa e escalável.
+      </div>
+    </td>
+    <td>
+      <div>
+        <img src="https://joaopauloaramuni.github.io/image/logo_ES_vertical.png" alt="Logo do Projeto" width="120px"/>
+      </div>
+    </td>
+  </tr> 
 </table>
 
 ---
@@ -166,108 +161,22 @@ Crie um arquivo **`.env`** na raiz e use o prefixo `VITE_`.
 
 #### 3 Exemplos de Variáveis de Ambiente na Vercel
 
-```
-
+```env
 VITE_EMAILJS_SERVICE_ID=seu_service_id
 VITE_EMAILJS_TEMPLATE_ID_FOR_ME=seu_template
 VITE_EMAILJS_PUBLIC_KEY=sua_chave
-
-```
-
----
-
-### 📦 Instalação de Dependências
-
-1.  **Clone o Repositório:**
-```bash
-git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+📦 Instalação de DependênciasClone o Repositório:Bashgit clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
 cd seu-repositorio
-
-```
-
-#### Front-end (React)
-
-```bash
-npm install
-
-```
-
-#### Back-end (Spring Boot)
-
-*(Comandos reservados para a sprint de back-end)*
-
-```bash
-cd backend
+Front-end (React)Bashnpm install
+Back-end (Spring Boot)(Comandos reservados para a sprint de back-end)Bashcd backend
 ./mvnw clean install
-
-```
-
----
-
-### 💾 Inicialização do Banco de Dados (PostgreSQL)
-
-*(Secção reservada para sprint futura, caso seja necessário guardar mensagens do formulário numa base de dados)*
-
-```bash
-docker run --name portfolio_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=senha -e POSTGRES_DB=portfolio -p 5432:5432 -d postgres:16
-
-```
-
----
-
-### ⚡ Como Executar a Aplicação
-
-#### Terminal 1: Back-end (Spring Boot)
-
-*(Para sprints futuras)*
-
-```bash
-cd backend
+💾 Inicialização do Banco de Dados (PostgreSQL)(Secção reservada para sprint futura, caso seja necessário guardar mensagens do formulário numa base de dados)Bashdocker run --name portfolio_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=senha -e POSTGRES_DB=portfolio -p 5432:5432 -d postgres:16
+⚡ Como Executar a AplicaçãoTerminal 1: Back-end (Spring Boot)(Para sprints futuras)Bashcd backend
 ./mvnw spring-boot:run
-
-```
-
-#### Terminal 2: Front-end (React, Vite)
-
-Inicie o servidor de desenvolvimento do Front-end:
-
-```bash
-npm run dev
-
-```
-
-🎨 *O Portfólio estará disponível em **http://localhost:5173**.*
-
-#### 🐳 Execução Local Completa com Docker Compose (Incluindo Banco de Dados)
-
-*(Para sprints futuras)*
-
-#### 📦 Passos para build, inicialização e execução
-
-```bash
-docker-compose up --build -d
-
-```
-
----
-
-## 🚀 Deploy
-
-1. **Build do Projeto Front-end:**
-
-```bash
-npm run build
-
-```
-
-2. **Configuração:** Hospede a pasta `dist/` gerada na Vercel ou Netlify.
-
----
-
-## 📂 Estrutura de Pastas
-
-```text
-/
+Terminal 2: Front-end (React, Vite)Inicie o servidor de desenvolvimento do Front-end:Bashnpm run dev
+🎨 O Portfólio estará disponível em http://localhost:5173.🐳 Execução Local Completa com Docker Compose (Incluindo Banco de Dados)(Para sprints futuras)📦 Passos para build, inicialização e execuçãoBashdocker-compose up --build -d
+🚀 DeployBuild do Projeto Front-end:Bashnpm run build
+Configuração: Hospede a pasta dist/ gerada na Vercel ou Netlify.📂 Estrutura de PastasPlaintext/
 ├── public/              # Assets públicos (vite.svg, etc)
 ├── src/
 │   ├── assets/          # Imagens e ícones estáticos
@@ -279,82 +188,6 @@ npm run build
 ├── tailwind.config.js   # Configuração do tema (Cores, Fontes)
 ├── package.json         # Dependências do projeto (React, Vite, Motion)
 └── README.md            # Documentação
-
-```
-
----
-
-## 🎥 Demonstração
-
-### 📱 Aplicativo Mobile
-
-O portfólio é responsivo e adapta-se perfeitamente a ecrãs de telemóvel utilizando as classes utilitárias do Tailwind CSS.
-
-### 🌐 Aplicação Web
-
-| Tela | Captura de Tela |
-| --- | --- |
-| **Hero / Home** | **Secção de Projetos** |
-| <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Hero" width="120px" height="120px"> | <img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Projetos" width="120px" height="120px"> |
-
-### 💻 Exemplo de saída no Terminal (para Back-end, API, CLI)
-
-*(Reservado para logs da API nas próximas fases)*
-
----
-
-## 🧪 Testes
-
-*(Planeado para futuras iterações utilizando Vitest ou Jest)*
-
-```bash
-npm run test
-
-```
-
----
-
-## 🔗 Documentações utilizadas
-
-* 📖 **React:** [Documentação Oficial](https://www.google.com/search?q=https://react.dev/)
-* 📖 **Vite:** [Guia de Configuração](https://www.google.com/search?q=https://vitejs.dev/)
-* 📖 **Tailwind CSS:** [Documentação](https://www.google.com/search?q=https://tailwindcss.com/docs)
-* 📖 **Framer Motion:** [Documentação](https://www.framer.com/motion/)
-
----
-
-## 👥 Autores
-
-| 👤 Nome | 🖼️ Foto | :octocat: GitHub | 💼 LinkedIn | 📤 Gmail |
-| --- | --- | --- | --- | --- |
-| Nome Profissional | <div align="center"><img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" width="70px" height="70px"></div> | <div align="center"><a href="https://www.google.com/search?q=https://github.com/seu-usuario"><img src="https://joaopauloaramuni.github.io/image/github6.png" width="50px" height="50px"></a></div> | <div align="center"><a href="https://www.google.com/search?q=https://www.linkedin.com/in/seu-linkedin"><img src="https://joaopauloaramuni.github.io/image/linkedin2.png" width="50px" height="50px"></a></div> | <div align="center"><a href="mailto:seu-email@gmail.com"><img src="https://joaopauloaramuni.github.io/image/gmail3.png" width="50px" height="50px"></a></div> |
-
----
-
-## 🤝 Contribuição
-
-1. Faça um `fork` do projeto.
-2. Crie uma branch para a sua feature (`git checkout -b feature/minha-feature`).
-3. Commit as suas mudanças (`git commit -m 'feat: Nova animação'`).
-4. Faça o `push` (`git push origin feature/minha-feature`).
-5. Abra um **Pull Request**.
-
----
-
-## 🙏 Agradecimentos
-
-Gostaria de agradecer aos professores e à comunidade open-source pelo apoio na construção da base de conhecimentos para este portfólio.
-
-* **[Engenharia de Software PUC Minas](https://www.instagram.com/engsoftwarepucminas/)** - Pela estrutura e boas práticas ensinadas nos laboratórios.
-
----
-
-## 📄 Licença
-
-Este projeto é distribuído sob a **[Licença MIT](https://www.google.com/search?q=./LICENSE)**.
-
----
-
-```
-
-```
+🎥 Demonstração📱 Aplicativo MobileO portfólio é responsivo e adapta-se perfeitamente a ecrãs de telemóvel utilizando as classes utilitárias do Tailwind CSS.🌐 Aplicação WebTelaCaptura de TelaHero / HomeSecção de Projetos<img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Hero" width="120px" height="120px"><img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Projetos" width="120px" height="120px">💻 Exemplo de saída no Terminal (para Back-end, API, CLI)(Reservado para logs da API nas próximas fases)🧪 Testes(Planeado para futuras iterações utilizando Vitest ou Jest)Bashnpm run test
+🔗 Documentações utilizadas📖 React: Documentação Oficial📖 Vite: Guia de Configuração📖 Tailwind CSS: Documentação📖 Framer Motion: Documentação👥 Autores👤 Nome🖼️ Foto:octocat: GitHub💼 LinkedIn📤 GmailNome Profissional<div align="center"><img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" width="70px" height="70px"></div><div align="center"><a href="https://www.google.com/search?q=https://github.com/seu-usuario"><img src="https://joaopauloaramuni.github.io/image/github6.png" width="50px" height="50px"></a></div><div align="center"><a href="https://www.google.com/search?q=https://www.linkedin.com/in/seu-linkedin"><img src="https://joaopauloaramuni.github.io/image/linkedin2.png" width="50px" height="50px"></a></div><div align="center"><a href="mailto:seu-email@gmail.com"><img src="https://joaopauloaramuni.github.io/image/gmail3.png" width="50px" height="50px"></a></div>🤝 ContribuiçãoFaça um fork do projeto.Crie uma branch para a sua feature (git checkout -b feature/minha-feature).Commit as suas mudanças (git commit -m 'feat: Nova animação').Faça o push (git push origin feature/minha-feature).Abra um Pull Request.🙏 AgradecimentosGostaria de agradecer aos professores e à comunidade open-source pelo apoio na construção da base de conhecimentos para este portfólio.Engenharia de Software PUC Minas - Pela estrutura e boas práticas ensinadas nos laboratórios.📄 LicençaEste projeto é distribuído sob a Licença MIT.
+Gostaria que eu já te ajudasse a substituir os campos de *placeholder* (como `seu-usuario`, 
