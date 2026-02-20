@@ -160,34 +160,200 @@ Crie um arquivo **`.env`** na raiz e use o prefixo `VITE_`.
 | `VITE_EMAILJS_PUBLIC_KEY` | Chave pública para serviço de envio de e-mails. | `sua_public_key` |
 
 #### 3 Exemplos de Variáveis de Ambiente na Vercel
+# 🗂️ Portfólio Pessoal
+
+## ⚙️ Variáveis de Ambiente
 
 ```env
 VITE_EMAILJS_SERVICE_ID=seu_service_id
 VITE_EMAILJS_TEMPLATE_ID_FOR_ME=seu_template
 VITE_EMAILJS_PUBLIC_KEY=sua_chave
-📦 Instalação de DependênciasClone o Repositório:Bashgit clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
+```
+
+---
+
+## 📦 Instalação de Dependências
+
+### Clone o Repositório
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
 cd seu-repositorio
-Front-end (React)Bashnpm install
-Back-end (Spring Boot)(Comandos reservados para a sprint de back-end)Bashcd backend
+```
+
+### Front-end (React)
+
+```bash
+npm install
+```
+
+### Back-end (Spring Boot)
+
+> Comandos reservados para a sprint de back-end
+
+```bash
+cd backend
 ./mvnw clean install
-💾 Inicialização do Banco de Dados (PostgreSQL)(Secção reservada para sprint futura, caso seja necessário guardar mensagens do formulário numa base de dados)Bashdocker run --name portfolio_db -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=senha -e POSTGRES_DB=portfolio -p 5432:5432 -d postgres:16
-⚡ Como Executar a AplicaçãoTerminal 1: Back-end (Spring Boot)(Para sprints futuras)Bashcd backend
+```
+
+---
+
+## 💾 Inicialização do Banco de Dados (PostgreSQL)
+
+> Secção reservada para sprint futura, caso seja necessário guardar mensagens do formulário numa base de dados.
+
+```bash
+docker run --name portfolio_db \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=senha \
+  -e POSTGRES_DB=portfolio \
+  -p 5432:5432 \
+  -d postgres:16
+```
+
+---
+
+## ⚡ Como Executar a Aplicação
+
+### Terminal 1: Back-end (Spring Boot)
+
+> Para sprints futuras
+
+```bash
+cd backend
 ./mvnw spring-boot:run
-Terminal 2: Front-end (React, Vite)Inicie o servidor de desenvolvimento do Front-end:Bashnpm run dev
-🎨 O Portfólio estará disponível em http://localhost:5173.🐳 Execução Local Completa com Docker Compose (Incluindo Banco de Dados)(Para sprints futuras)📦 Passos para build, inicialização e execuçãoBashdocker-compose up --build -d
-🚀 DeployBuild do Projeto Front-end:Bashnpm run build
-Configuração: Hospede a pasta dist/ gerada na Vercel ou Netlify.📂 Estrutura de PastasPlaintext/
-├── public/              # Assets públicos (vite.svg, etc)
+```
+
+### Terminal 2: Front-end (React + Vite)
+
+Inicie o servidor de desenvolvimento do Front-end:
+
+```bash
+npm run dev
+```
+
+🎨 O Portfólio estará disponível em **http://localhost:5173**
+
+---
+
+## 🐳 Execução Local Completa com Docker Compose
+
+> Incluindo Banco de Dados — Para sprints futuras
+
+### 📦 Passos para build, inicialização e execução
+
+```bash
+docker-compose up --build -d
+```
+
+---
+
+## 🚀 Deploy
+
+### Build do Projeto Front-end
+
+```bash
+npm run build
+```
+
+> **Configuração:** Hospede a pasta `dist/` gerada na [Vercel](https://vercel.com) ou [Netlify](https://netlify.com).
+
+---
+
+## 📂 Estrutura de Pastas
+
+```plaintext
+/
+├── public/                 # Assets públicos (vite.svg, etc)
 ├── src/
-│   ├── assets/          # Imagens e ícones estáticos
-│   ├── index.css        # CSS Global e configurações do Tailwind
-│   ├── main.jsx         # Ponto de entrada do React
-│   ├── App.jsx          # Componente raiz (Gerencia Loading)
-│   ├── Loader.jsx       # Componente de loading inicial temático
-│   └── Portfolio.jsx    # Componente principal (Navegação e Secções)
-├── tailwind.config.js   # Configuração do tema (Cores, Fontes)
-├── package.json         # Dependências do projeto (React, Vite, Motion)
-└── README.md            # Documentação
-🎥 Demonstração📱 Aplicativo MobileO portfólio é responsivo e adapta-se perfeitamente a ecrãs de telemóvel utilizando as classes utilitárias do Tailwind CSS.🌐 Aplicação WebTelaCaptura de TelaHero / HomeSecção de Projetos<img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Hero" width="120px" height="120px"><img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" alt="Projetos" width="120px" height="120px">💻 Exemplo de saída no Terminal (para Back-end, API, CLI)(Reservado para logs da API nas próximas fases)🧪 Testes(Planeado para futuras iterações utilizando Vitest ou Jest)Bashnpm run test
-🔗 Documentações utilizadas📖 React: Documentação Oficial📖 Vite: Guia de Configuração📖 Tailwind CSS: Documentação📖 Framer Motion: Documentação👥 Autores👤 Nome🖼️ Foto:octocat: GitHub💼 LinkedIn📤 GmailNome Profissional<div align="center"><img src="https://joaopauloaramuni.github.io/image/aramunilogo.png" width="70px" height="70px"></div><div align="center"><a href="https://www.google.com/search?q=https://github.com/seu-usuario"><img src="https://joaopauloaramuni.github.io/image/github6.png" width="50px" height="50px"></a></div><div align="center"><a href="https://www.google.com/search?q=https://www.linkedin.com/in/seu-linkedin"><img src="https://joaopauloaramuni.github.io/image/linkedin2.png" width="50px" height="50px"></a></div><div align="center"><a href="mailto:seu-email@gmail.com"><img src="https://joaopauloaramuni.github.io/image/gmail3.png" width="50px" height="50px"></a></div>🤝 ContribuiçãoFaça um fork do projeto.Crie uma branch para a sua feature (git checkout -b feature/minha-feature).Commit as suas mudanças (git commit -m 'feat: Nova animação').Faça o push (git push origin feature/minha-feature).Abra um Pull Request.🙏 AgradecimentosGostaria de agradecer aos professores e à comunidade open-source pelo apoio na construção da base de conhecimentos para este portfólio.Engenharia de Software PUC Minas - Pela estrutura e boas práticas ensinadas nos laboratórios.📄 LicençaEste projeto é distribuído sob a Licença MIT.
-Gostaria que eu já te ajudasse a substituir os campos de *placeholder* (como `seu-usuario`, 
+│   ├── assets/             # Imagens e ícones estáticos
+│   ├── index.css           # CSS Global e configurações do Tailwind
+│   ├── main.jsx            # Ponto de entrada do React
+│   ├── App.jsx             # Componente raiz (Gerencia Loading)
+│   ├── Loader.jsx          # Componente de loading inicial temático
+│   └── Portfolio.jsx       # Componente principal (Navegação e Secções)
+├── tailwind.config.js      # Configuração do tema (Cores, Fontes)
+├── package.json            # Dependências do projeto (React, Vite, Motion)
+└── README.md               # Documentação
+```
+
+---
+
+## 🎥 Demonstração
+
+### 📱 Aplicativo Mobile
+
+O portfólio é responsivo e adapta-se perfeitamente a ecrãs de telemóvel utilizando as classes utilitárias do Tailwind CSS.
+
+### 🌐 Aplicação Web
+
+| Tela | Captura de Tela |
+|------|-----------------|
+| Hero / Home | *(imagem)* |
+| Secção de Projetos | *(imagem)* |
+
+---
+
+## 💻 Exemplo de Saída no Terminal
+
+> Reservado para logs da API nas próximas fases (Back-end / API / CLI)
+
+---
+
+## 🧪 Testes
+
+> Planeado para futuras iterações utilizando **Vitest** ou **Jest**
+
+```bash
+npm run test
+```
+
+---
+
+## 🔗 Documentações Utilizadas
+
+- 📖 [React — Documentação Oficial](https://react.dev)
+- 📖 [Vite — Guia de Configuração](https://vitejs.dev)
+- 📖 [Tailwind CSS — Documentação](https://tailwindcss.com/docs)
+- 📖 [Framer Motion — Documentação](https://www.framer.com/motion)
+
+---
+
+## 👥 Autores
+
+| 👤 Nome | 🖼️ Foto | :octocat: GitHub | 💼 LinkedIn | 📤 Gmail |
+|---------|---------|------------------|-------------|----------|
+| Nome Profissional | *(foto)* | [GitHub](https://github.com/seu-usuario) | [LinkedIn](https://linkedin.com/in/seu-perfil) | seu@email.com |
+
+---
+
+## 🤝 Contribuição
+
+1. Faça um **fork** do projeto.
+2. Crie uma branch para a sua feature:
+   ```bash
+   git checkout -b feature/minha-feature
+   ```
+3. Commit as suas mudanças:
+   ```bash
+   git commit -m 'feat: Nova animação'
+   ```
+4. Faça o push:
+   ```bash
+   git push origin feature/minha-feature
+   ```
+5. Abra um **Pull Request**.
+
+---
+
+## 🙏 Agradecimentos
+
+Gostaria de agradecer aos professores e à comunidade open-source pelo apoio na construção da base de conhecimentos para este portfólio.
+
+> **Engenharia de Software — PUC Minas** · Pela estrutura e boas práticas ensinadas nos laboratórios.
+
+---
+
+## 📄 Licença
+
+Este projeto é distribuído sob a **Licença MIT**.
