@@ -5,6 +5,9 @@ import {
   Terminal, ExternalLink, Code2, MapPin, Phone, Briefcase
 } from 'lucide-react';
 
+// Importando o novo background animado
+import ParallaxBackground from './ParallaxBackground';
+
 const Portfolio = () => {
   // Estado para controlar qual seção está ativa na navegação
   const [activeSection, setActiveSection] = useState('home');
@@ -56,11 +59,15 @@ const Portfolio = () => {
         </div>
       </header>
 
+      {/* ================= INTRODUÇÃO ANIMADA ================= */}
+      {/* O componente Parallax assume o controle do scroll inicial */}
+      <ParallaxBackground />
+
       {/* ================= CONTEÚDO PRINCIPAL ================= */}
-      <main className="pt-20">
+      <main className="relative z-10 bg-samurai-dark">
 
         {/* --- SEÇÃO: HERO (HOME) --- */}
-        <section id="home" className="min-h-[90vh] flex items-center relative overflow-hidden">
+        <section id="home" className="min-h-[90vh] flex items-center relative overflow-hidden pt-20">
           {/* Brilho de Fundo */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-samurai-gold/5 blur-[120px] rounded-full pointer-events-none" />
           
@@ -77,7 +84,7 @@ const Portfolio = () => {
                 </span>
               </h1>
               <p className="text-neutral-400 text-lg mb-8 max-w-lg font-light leading-relaxed">
-                Forjando experiências digitais com a precisão de um corte de katana. Especialista em infraestrutura, React e Node.js.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
               
               <div className="flex gap-4">
@@ -91,7 +98,7 @@ const Portfolio = () => {
               </div>
             </motion.div>
 
-            {/* Imagem/Avatar (Adaptado do seu código) */}
+            {/* Imagem/Avatar */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.8 }} 
               animate={{ opacity: 1, scale: 1 }} 
@@ -113,16 +120,16 @@ const Portfolio = () => {
           <div className="max-w-7xl mx-auto px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={fadeUp}>
               <h2 className="font-serif text-3xl md:text-4xl text-white mb-16 flex items-center gap-4">
-                <span className="text-samurai-gold font-mono text-lg">01.</span> Sobre o Caminho
+                <span className="text-samurai-gold font-mono text-lg">01.</span> Minha trajetória
               </h2>
 
               <div className="grid md:grid-cols-2 gap-16">
                 <div>
                   <p className="text-neutral-400 leading-relaxed mb-8">
-                    Sou um desenvolvedor apaixonado com mais de 3 anos de experiência na forja de aplicações web. Minha disciplina reside em escrever código limpo, escalável e focado na resolução de problemas reais de negócios.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.
                   </p>
                   
-                  {/* Status Adaptados do seu HTML */}
+                  {/* Status */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="border border-neutral-800 p-6 bg-black text-center hover:border-samurai-gold/50 transition-colors">
                       <div className="text-3xl font-serif text-samurai-gold mb-2">15+</div>
@@ -171,7 +178,7 @@ const Portfolio = () => {
           <div className="max-w-3xl mx-auto px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
               <h2 className="font-serif text-3xl md:text-4xl text-white mb-16 flex items-center gap-4">
-                <span className="text-samurai-gold font-mono text-lg">02.</span> Histórico de Batalhas
+                <span className="text-samurai-gold font-mono text-lg">02.</span> Histórico da minha Experiência
               </h2>
 
               <div className="border-l border-neutral-800 ml-3 space-y-12 pb-8">
@@ -184,7 +191,7 @@ const Portfolio = () => {
                     <Briefcase size={14} /> Empresa Tech S.A.
                   </div>
                   <p className="text-neutral-400 font-light text-sm">
-                    Liderança técnica no desenvolvimento de dashboards corporativos, otimização de banco de dados e criação de APIs RESTful usando Node.js.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
 
@@ -197,7 +204,7 @@ const Portfolio = () => {
                     <Briefcase size={14} /> Agência Criativa
                   </div>
                   <p className="text-neutral-400 font-light text-sm">
-                    Criação de landing pages de alta conversão e manutenção de sites legados.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   </p>
                 </div>
               </div>
@@ -210,11 +217,11 @@ const Portfolio = () => {
           <div className="max-w-7xl mx-auto px-6">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
               <h2 className="font-serif text-3xl md:text-4xl text-white mb-16 flex items-center gap-4">
-                <span className="text-samurai-gold font-mono text-lg">03.</span> A Forja (Projetos)
+                <span className="text-samurai-gold font-mono text-lg">03.</span> Projetos
               </h2>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* Projeto Card (Adaptado do HTML) */}
+                {/* Projeto Card */}
                 {[1, 2, 3].map((item) => (
                   <div key={item} className="group bg-black border border-neutral-800 hover:border-samurai-gold/50 transition-all duration-300 overflow-hidden">
                     {/* Imagem Placeholder */}
@@ -232,9 +239,9 @@ const Portfolio = () => {
                     </div>
                     {/* Info */}
                     <div className="p-6">
-                      <h3 className="font-serif text-xl text-white mb-2 group-hover:text-samurai-gold transition-colors">Sistema de Gestão</h3>
+                      <h3 className="font-serif text-xl text-white mb-2 group-hover:text-samurai-gold transition-colors">SISTEMA</h3>
                       <p className="text-neutral-400 text-sm mb-6 line-clamp-3">
-                        Uma plataforma completa com integração de pagamentos e gestão avançada de inventário construída do zero.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vulputate, sapien at laoreet viverra, diam ipsum varius justo, sed aliquet justo dolor at arcu.
                       </p>
                       <div className="flex gap-3 font-mono text-xs text-neutral-500">
                         <span>React</span>
@@ -262,13 +269,13 @@ const Portfolio = () => {
                 <div className="md:col-span-2 space-y-8">
                   <h3 className="font-serif text-2xl text-white mb-6">Informações</h3>
                   <div className="flex items-center gap-4 text-neutral-400">
-                    <Mail className="text-samurai-gold" /> dev@exemplo.com
+                    <Mail className="text-samurai-gold" /> lorem@ipsum.com
                   </div>
                   <div className="flex items-center gap-4 text-neutral-400">
-                    <Phone className="text-samurai-gold" /> +55 11 99999-9999
+                    <Phone className="text-samurai-gold" /> +00 00 00000-0000
                   </div>
                   <div className="flex items-center gap-4 text-neutral-400">
-                    <MapPin className="text-samurai-gold" /> São Paulo, Brasil
+                    <MapPin className="text-samurai-gold" /> Lorem ipsum, Lorem
                   </div>
                 </div>
 
