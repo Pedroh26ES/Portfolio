@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Montserrat:wght@300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-[#0a0a0a] text-white transition-colors duration-500 ease-in-out;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+}
+
+body.light-mode {
+  @apply bg-gray-50 text-gray-900;
+}
+
+.font-mono {
+  font-family: 'Fira Code', monospace;
+}
+
+/* O resto do seu CSS de loader e lightning pode permanecer igual aqui */
+.loader {
+  display: inline-flex;
+  gap: 5px;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  width: 35px;
+  aspect-ratio: 1;
+  box-shadow: 0 0 0 3px inset #D4AF37;
+  animation: 2s infinite linear;
+  animation-name: l3-1, l3-2;
+  animation-delay: -1s, 0s;
+}
+.loader:after { --s: -1; }
+@keyframes l3-1 {
+  0%   { border-radius: 50% 0 0 50%; }
+  25%  { border-radius: 50% 50% 0 0; }
+  50%  { border-radius: 0 50% 50% 0; }
+  75%  { border-radius: 0 0 50% 50%; }
+  100% { border-radius: 50% 0 0 50%; }
+}
+@keyframes l3-2 {
+  0%   { transform: scaleX(var(--s, 1)) rotate(0deg); }
+  100% { transform: scaleX(var(--s, 1)) rotate(-360deg); }
+}
+
+#goldenGrid {
+  font-family: 'Fira Code', monospace;
+  font-size: 3.7vw;
+  width: 100vw;
+  height: 100vh;
+  word-break: break-all;
+  overflow: hidden;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+#goldenGrid span {
+  display: inline-block;
+  opacity: 0;
+  color: #0d0d0d;
+  transition: opacity 0.1s ease, color 0.4s ease-out, text-shadow 0.4s ease-out;
+}
+
+#goldenGrid span.static {
+  opacity: 0 !important;
+}
