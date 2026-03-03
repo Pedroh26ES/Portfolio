@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DICTIONARY = "0123456789qwertyuiopasdfghjklzxcvbnm".split('');
@@ -8,41 +8,41 @@ const CW_START = Math.floor(LETTER_TOTAL / 2 - CENTER_WORD.length / 2);
 const CW_END = CW_START + CENTER_WORD.length;
 const ROW_LENGTH = 45;
 
-const getTrailStartingPositions = function () {
-  const results = [];
-  results.push(CW_START);
-  results.push(CW_END + 1);
+const getTrailStartingPositions = () => {
+  const results = [CW_START, CW_END + 1];
   for (let i = CW_START; i < CW_END + 1; i++) {
-    const top = i - ROW_LENGTH;
-    const bottom = i + ROW_LENGTH + 1;
-    results.push(top, bottom);
+    results.push(i - ROW_LENGTH, i + ROW_LENGTH + 1);
   }
   return results;
 };
 
 const STARTING_POSITIONS = getTrailStartingPositions();
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
+const getRandomIntInclusive = (min, max) => Math.floor(Math.random() * (Math.floor(max) - Math.ceil(min) + 1)) + Math.ceil(min);
 const genRanChar = () => DICTIONARY[Math.floor(Math.random() * DICTIONARY.length)];
 
 function pickRandomProperty(obj) {
   let result;
   let count = 0;
-  for (let prop in obj)
+  for (let prop in obj) {
     if (Math.random() < 1 / ++count) result = prop;
+  }
   return result;
 }
+
 // ----------------------------------------
 
 const DouradoWebLoader = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState(0); 
+  const [phase, setPhase] = useState(0);
+  
+  const gridRef = useRef(null);
+  
+  // Separando intervalos e frames de animação para limpeza correta
+  const activeIntervals = useRef(new Set());
+  const activeFrames = useRef(new Set());
 
+  // Progresso de 0 a 100
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
@@ -58,25 +58,26 @@ const DouradoWebLoader = ({ onComplete }) => {
     return () => clearInterval(interval);
   }, []);
 
+  // Efeito Matrix/Grid (Otimizado)
   useEffect(() => {
-    if (phase !== 0) return;
+    if (phase !== 0 || !gridRef.current) return;
 
-    const el = document.getElementById('goldenGrid');
-    if (!el) return;
-
+    const el = gridRef.current;
     let string = ``;
     let wordIndex = 0;
+
     for (let i = 0; i < LETTER_TOTAL; i++) {
       if (i >= CW_START && i < CW_END) {
-        string += `<span class="static">${CENTER_WORD[wordIndex]}</span>`;
+        string += `<span class="static" style="opacity:1; color:#0d0d0d;">${CENTER_WORD[wordIndex]}</span>`;
         wordIndex++;
       } else {
-        string += `<span>${genRanChar()}</span>`;
+        string += `<span style="opacity:1; color:#0d0d0d;">${genRanChar()}</span>`;
       }
     }
     el.innerHTML = string;
+    const spans = el.children;
 
-    const Trail = function () {
+    function Trail() {
       this.position = STARTING_POSITIONS[getRandomIntInclusive(0, STARTING_POSITIONS.length - 1)];
       this.lastDirection = '';
       this.moves = { left: -1, right: 1, up: -ROW_LENGTH, down: ROW_LENGTH };
@@ -89,22 +90,20 @@ const DouradoWebLoader = ({ onComplete }) => {
         this.lastDirection = direction;
         const move = this.moves[direction];
 
-        const current = document.querySelector(`#goldenGrid span:nth-child(${this.position})`);
+        const current = spans[this.position - 1]; 
         this.position += move;
-        const next = document.querySelector(`#goldenGrid span:nth-child(${this.position})`);
+        const next = spans[this.position - 1];
 
         if (next) {
           if (current) {
-            current.style.opacity = 1;
-            current.style.color = '#0d0d0d'; // Cor do Fundo
+            current.style.color = '#0d0d0d'; 
             current.style.textShadow = 'none';
           }
-          next.style.opacity = 1;
-          next.style.color = '#D4AF37'; // Dourado
-          next.style.textShadow = '0 0 10px rgba(212, 175, 55, 0.8)'; // Brilho neon
+          next.style.color = '#D4AF37'; 
+          next.style.textShadow = '0 0 10px rgba(212, 175, 55, 0.8)'; 
+          return true;
         } else {
           if (current) {
-            current.style.opacity = 1;
             current.style.color = '#0d0d0d';
             current.style.textShadow = 'none';
           }
@@ -114,38 +113,65 @@ const DouradoWebLoader = ({ onComplete }) => {
 
       this.flow = function () {
         const self = this;
-        const animate = setInterval(function () {
-          const move = self.move();
-          if (move === false) {
-            clearInterval(animate);
+        let frameId;
+        
+        // Uso de requestAnimationFrame para 60fps cravados na GPU
+        const step = () => {
+          const moved = self.move();
+          if (moved) {
+            frameId = requestAnimationFrame(step);
+            activeFrames.current.add(frameId);
+          } else {
+            activeFrames.current.delete(frameId);
           }
-        }, 16);
+        };
+        
+        frameId = requestAnimationFrame(step);
+        activeFrames.current.add(frameId);
       };
-    };
+    }
 
-    const animateTrails = function () {
-      const trails = [];
-      for (let i = 0; i < 15; i++) trails.push(new Trail());
-      for (let i = 0; i < trails.length; i++) trails[i].flow();
+    const animateTrails = () => {
+      // Limita o número de animações simultâneas para não estourar a memória/FPS
+      if (activeFrames.current.size < 120) {
+        for (let i = 0; i < 15; i++) {
+          new Trail().flow();
+        }
+      }
     };
 
     animateTrails();
-    const interval = setInterval(animateTrails, 1200);
+    const trailInterval = setInterval(animateTrails, 1200);
+    activeIntervals.current.add(trailInterval);
 
     el.onclick = animateTrails;
 
-    return () => clearInterval(interval);
+    return () => {
+      activeIntervals.current.forEach(clearInterval);
+      activeIntervals.current.clear();
+      
+      activeFrames.current.forEach(cancelAnimationFrame);
+      activeFrames.current.clear();
+    };
   }, [phase]);
 
   return (
-    <motion.div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+    <motion.div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black overflow-hidden">
       
-      {phase === 0 && <div id="goldenGrid" />}
+      {phase === 0 && (
+        <div 
+          ref={gridRef} 
+          id="goldenGrid" 
+          className="absolute inset-0 flex flex-wrap content-center justify-center w-full h-full cursor-pointer select-none"
+        />
+      )}
 
+      {/* Cortinas de Fundo */}
       <motion.div
         initial={{ y: 0 }}
         animate={phase === 2 ? { y: "-100%" } : { y: 0 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        style={{ willChange: "transform" }}
         className="absolute top-0 left-0 w-full h-1/2 bg-[#0d0d0d] z-10"
       />
       
@@ -153,17 +179,20 @@ const DouradoWebLoader = ({ onComplete }) => {
         initial={{ y: 0 }}
         animate={phase === 2 ? { y: "100%" } : { y: 0 }}
         transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+        style={{ willChange: "transform" }}
         onAnimationComplete={() => {
-          if (phase === 2) onComplete();
+          if (phase === 2 && onComplete) onComplete();
         }}
         className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0d0d0d] z-10"
       />
 
+      {/* Porcentagem */}
       <AnimatePresence>
         {phase === 0 && (
           <motion.div
             exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
             transition={{ duration: 0.4 }}
+            style={{ willChange: "transform, opacity, filter" }}
             className="z-20 text-center w-[200px] relative font-sans"
           >
             <p className="text-[#D4AF37] text-[40px] font-thin tracking-widest uppercase mb-[-10px] drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
@@ -180,38 +209,72 @@ const DouradoWebLoader = ({ onComplete }) => {
         )}
       </AnimatePresence>
 
+      {/* Animação da Katana e Rastro */}
       <AnimatePresence>
         {phase === 1 && (
           <motion.div
-            initial={{ opacity: 0, x: -200, y: 200, rotate: -45, scale: 0.5 }}
+            initial={{ opacity: 0, scale: 0.5, rotate: 0 }}
             animate={{
               opacity: [0, 1, 1, 0],
-              x: [-200, 0, 0, 0],
-              y: [200, 0, 0, 0],
-              rotate: [-45, -45, 0, 0],
-              scale: [0.5, 1, 1.5, 40],
+              scale: [0.5, 1, 1, 60],
+              rotate: [0, 1080, 1080, 1080],
             }}
             transition={{
-              duration: 1.5,
-              times: [0, 0.2, 0.5, 1],
+              duration: 2.5,
+              times: [0, 0.5, 0.75, 1], 
               ease: "easeInOut",
             }}
             onAnimationComplete={() => setPhase(2)}
+            style={{ willChange: "transform, opacity" }} // Essencial para evitar lag no zoom massivo
             className="absolute z-30 flex items-center justify-center w-[600px] h-[100px] pointer-events-none"
           >
-            <motion.div
-              initial={{ scaleX: 0, opacity: 0 }}
-              animate={{ scaleX: [0, 1, 1], opacity: [0, 1, 0] }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150vw] h-[2px] bg-white shadow-[0_0_30px_5px_#D4AF37]"
-            />
+            {/* Rastro por onde passou */}
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 1, rotate: 0 }}
+                animate={{
+                  opacity: [0, 0.4, 0],
+                  scale: [1, 1.2, 1.5],
+                  rotate: [0, 720, 1080],
+                }}
+                transition={{
+                  duration: 1.2, 
+                  delay: i * 0.1, 
+                  ease: "easeOut",
+                  repeat: 0
+                }}
+                style={{ willChange: "transform, opacity" }}
+                className="absolute w-full h-full flex items-center justify-center"
+              >
+                <svg viewBox="0 0 500 50" className="w-full h-full drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                  <path d="M105,26 Q250,21 475,21 L485,24 Q250,27 105,27 Z" fill="none" stroke="url(#trailGradient)" strokeWidth="2" opacity="0.6"/>
+                </svg>
+              </motion.div>
+            ))}
 
+            {/* SVG da Katana Principal */}
             <svg viewBox="0 0 500 50" className="w-full h-full drop-shadow-[0_0_15px_rgba(212,175,55,0.6)]">
-              <path d="M100,25 C200,20 400,10 490,20 C495,20.5 500,22 495,25 C400,28 200,30 100,25 Z" fill="#e5e5e5" />
-              <path d="M100,25 C200,23 400,15 490,20 C400,26 200,28 100,25 Z" fill="#ffffff" filter="drop-shadow(0px 0px 4px #D4AF37)" />
-              <rect x="95" y="10" width="8" height="30" fill="#D4AF37" rx="2" />
-              <path d="M20,20 L95,20 L95,30 L20,30 Z" fill="#111" stroke="#D4AF37" strokeWidth="2" />
-              <path d="M10,18 L20,18 L20,32 L10,32 Z" fill="#D4AF37" />
+              <defs>
+                <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#F9F295" />
+                  <stop offset="50%" stopColor="#D4AF37" />
+                  <stop offset="100%" stopColor="#8A6B1C" />
+                </linearGradient>
+                <linearGradient id="trailGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="rgba(212, 175, 55, 0)" />
+                  <stop offset="50%" stopColor="rgba(212, 175, 55, 0.8)" />
+                  <stop offset="100%" stopColor="rgba(212, 175, 55, 0)" />
+                </linearGradient>
+              </defs>
+              
+              <path d="M105,26 Q250,16 485,18 Q495,19 498,22 Q480,27 250,28 Q105,28 105,26 Z" fill="#e5e5e5" />
+              <path d="M105,26 Q250,21 475,21 L485,24 Q250,27 105,27 Z" fill="#ffffff" filter="drop-shadow(0px 0px 4px #D4AF37)" />
+              <rect x="98" y="23" width="7" height="6" fill="url(#goldGradient)" rx="1" />
+              <ellipse cx="96" cy="26" rx="3" ry="12" fill="#111" stroke="url(#goldGradient)" strokeWidth="1.5" />
+              <path d="M20,23 L93,23 L93,29 L20,29 Z" fill="#111" />
+              <path d="M25,23 L32,29 M35,23 L42,29 M45,23 L52,29 M55,23 L62,29 M65,23 L72,29 M75,23 L82,29 M85,23 L92,29" stroke="url(#goldGradient)" strokeWidth="1.5" opacity="0.9" />
+              <path d="M14,22 L20,23 L20,29 L14,30 C11,30 9,28 9,26 C9,24 11,22 14,22 Z" fill="url(#goldGradient)" />
             </svg>
           </motion.div>
         )}
