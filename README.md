@@ -36,14 +36,40 @@ A organização segue padrões de modularidade no diretório `src/`:
 
 ```plaintext
 src/
-├─ assets/                # Recursos estáticos (Imagens/SVGs)
-├─ App.jsx                # Componente raiz e orquestrador
-├─ App.css                # Estilos globais do container
-├─ index.css              # Configurações de base do Tailwind
-├─ Loader.jsx             # Lógica de splash screen e carregamento
-├─ main.jsx               # Ponto de entrada (Entry point)
-├─ IntroScroller.jsx      # Engine de animação GSAP
-└─ Portfolio.jsx          # Estrutura de conteúdo e UI principal
+│
+├── main.jsx              
+├── App.jsx               
+├── App.css               
+├── index.css             
+│
+├── Loader.jsx            Tela de carregamento animada.
+├── IntroScroller.jsx     Cena das montanhas animada.
+├── Portfolio.jsx         Monta o site inteiro.
+│
+├── assets/              Arquivos estáticos (imagens, ícones).
+│
+├── components/
+│   ├── layout/
+│   │   ├── Header.jsx    Barra de navegação do topo.
+│   │   └── Footer.jsx    Rodapé.
+│   │
+│   ├── sections/         Cada aba do site.
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   ├── Experience.jsx
+│   │   ├── Projects.jsx
+│   │   └── Contact.jsx
+│   │
+│   └── ui/               Componentes com lógica ou estrutura própria, para evitar repetição.
+│       ├── ProjectCard.jsx
+│       ├── ExpItem.jsx
+│       └── ContactBox.jsx
+│
+└── data/                 Conteúdo do site (dados, informações, traduções e etc..)
+    ├── experiences.js    
+    ├── projects.js       
+    ├── skills.js         
+    └── translations.js   Textos em PT e EN.
 
 ```
 
