@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useInView } from "framer-motion";
 import { Mail, Phone, MapPin, Github, Linkedin, ArrowRight, CheckCircle, AlertCircle } from "lucide-react";
 import ContactBox from "../ui/ContactBox";
+import emailjs from '@emailjs/browser';
 
 // Componente customizado para os Inputs
 const AnimatedInputField = ({ value, onChange, placeholder, isLightMode, type = "text", rows, error }) => {
@@ -126,13 +127,38 @@ const Contact = ({ isLightMode, t, fadeUp }) => {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setErrors({});
-    setFormStatus("sending");
     
-    setTimeout(() => {
+    // Inicia a sua animação de carregamento
+    setFormStatus("sending"); 
+
+    // 1. Organiza os dados que estão no seu useState
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      subject: form.subject,
+      message: form.message,
+    };
+
+    // 2. Dispara o e-mail usando emailjs.send()
+    emailjs.send(
+      'service_sv7wnz8',    // Service ID do site
+      'template_ivy211k',   // Template ID do site
+      templateParams,
+      'Qo8PUmT4EnfoCbfsv'     // Public Key
+    )
+    .then((response) => {
+      console.log('E-mail enviado com sucesso!', response.status, response.text);
       setFormStatus("success");
-      setForm({ name: "", email: "", subject: "", message: "" });
+      setForm({ name: "", email: "", subject: "", message: "" }); // Limpa os campos
+      
+      setTimeout(() => setFormStatus("idle"), 5000); // Volta o botão ao normal
+    })
+    .catch((error) => {
+      console.log('Falha ao enviar e-mail...', error);
+      setFormStatus("error"); // Você já tem essa animação de erro no seu código!
+      
       setTimeout(() => setFormStatus("idle"), 5000);
-    }, 1800);
+    });
   };
 
   const handleInput = (field) => (e) => {
